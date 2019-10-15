@@ -17,8 +17,9 @@ function Login (){
           event.preventDefault();
           axiosWithAuth().post('/api/login', credentials)
                .then(response => {
-                    localStorage.setItem('token', response.data.token)
-                    this.props.history.push('/')
+                    console.log(response)
+                    // localStorage.setItem('token', response.data.token)
+                    // this.props.history.push('/')
                })
      }
      

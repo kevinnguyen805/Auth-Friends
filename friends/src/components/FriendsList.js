@@ -6,6 +6,12 @@ import {axiosWithAuth} from '../utils/axiosWithAuth'
 function FriendsList (props) {
 
      const [friendData, setFriendData] = useState([])
+     const [newFriend, setNewFriend] = useState({
+          name:'',
+          email:'',
+          age:''
+     })
+
 
      useEffect(() => {
           getData()
@@ -19,9 +25,56 @@ function FriendsList (props) {
           })
      }
 
+     const submitNewFriend = (event) => {
+          event.preventDefault()
+          const newFriendAdded = {
+               ...newFriend,
+               id: Date.now()
+          }
+
+          axiosWithAuth()
+          .post('/api/friends', newFriendAdded)
+          .then(response => {
+               console.log(response)
+          })
+     }
+
+     const handleChanges = event => {
+          setNewFriend({
+               ...newFriend,
+               [event.target.name]:event.target.value
+          })
+     }
 
      return(
-          <div>{
+          <div>
+               <div>
+                   <form onSubmit={submitNewFriend}>
+                    <input 
+                         type="text"
+                         name="name"
+                         value={newFriend.name}
+                         onChange={handleChanges}
+                         placeholder="Name"
+                    />
+                    <input 
+                         type="text"
+                         name="email"
+                         value={newFriend.email}
+                         onChange={handleChanges}
+                         placeholder="Email"
+                    />
+                    <input 
+                         type="text"
+                         name="age"
+                         value={newFriend.age}
+                         onChange={handleChanges}
+                         placeholder="Age"
+                    />
+                    <button>Submit new friend</button>
+                    </form> 
+               </div>
+          {
                friendData.map(item => {
                     return(
                          <div key={item.id}>

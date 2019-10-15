@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import axios from 'axios'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import {Redirect} from 'react-router-dom'
 

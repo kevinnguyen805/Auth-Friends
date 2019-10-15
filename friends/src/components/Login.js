@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import {Redirect} from 'react-router-dom'
 
-
-function Login (){
+function Login (props){
 
      const [credentials, setCredentials] = useState({
           username:'',
@@ -21,11 +21,12 @@ function Login (){
           console.log(credentials)
           axiosWithAuth().post('/api/login', credentials)
                .then(response => {
-                    console.log(response)
-                    localStorage.setItem('token', response.data.token)
-                    // this.props.history.push('/')
+                    console.log(response.data)
+                    localStorage.setItem('token', response.data.payload)
+                    props.history.push('/protected')
                })
      }
+     
      
 
      return(

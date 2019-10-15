@@ -5,7 +5,10 @@ import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 function Login (){
 
-     const [credentials, setCredentials] = useState({})
+     const [credentials, setCredentials] = useState({
+          username:'',
+          password:''
+     })
 
      const handleChanges = event => {
           setCredentials({
@@ -15,10 +18,11 @@ function Login (){
 
      const submitLogin = event => {
           event.preventDefault();
+          console.log(credentials)
           axiosWithAuth().post('/api/login', credentials)
                .then(response => {
                     console.log(response)
-                    // localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('token', response.data.token)
                     // this.props.history.push('/')
                })
      }
